@@ -12,7 +12,7 @@ class AppTextStyle {
 
   static TextStyle buttonText(double width, Color textColor) {
     return TextStyle(
-      fontSize: width * 1.3,
+      fontSize: width * 0.8,
       letterSpacing: 2,
       color: textColor,
       fontWeight: FontWeight.w600,
@@ -27,10 +27,10 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle miniDefaultDescriptionText(double width) {
+  static TextStyle miniDefaultDescriptionText(double width, Color textColor) {
     return TextStyle(
       fontSize: width,
-      color: Colors.black,
+      color: textColor,
     );
   }
 

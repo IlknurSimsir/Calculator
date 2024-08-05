@@ -11,7 +11,7 @@ class MainButton extends StatelessWidget {
   final Color btnTextColor;
   final IconData? icon;
   final double withScaleFactor;
-  final double btnHeight;
+  final double heightScaleFactor;
   final double btnMarginVertical;
   final double btnMarginHorizontal;
   final double btnPaddingVertical;
@@ -28,7 +28,7 @@ class MainButton extends StatelessWidget {
     required this.btnTextColor,
     this.icon,
     required this.withScaleFactor,
-    required this.btnHeight,
+    required this.heightScaleFactor,
     required this.btnMarginVertical,
     required this.btnMarginHorizontal,
     required this.btnPaddingVertical,
@@ -44,7 +44,8 @@ class MainButton extends StatelessWidget {
         ScreenSize.screenWidthControl(screenWidth)['valueResult']!;
     double valueTextSize =
         ScreenSize.screenWidthControl(screenWidth)['valueTextSize']!;
-
+    double valueBtnDimension =
+        ScreenSize.screenWidthControl(screenWidth)['valueBtnDimension']!;
     Widget place() {
       return isRow
           ? Row(
@@ -55,9 +56,13 @@ class MainButton extends StatelessWidget {
                 const SizedBox(
                   width: 5,
                 ),
-                Text(
-                  btnText,
-                  style: AppTextStyle.buttonText(valueTextSize, btnTextColor),
+                Flexible(
+                  child: Text(
+                    btnText,
+                    softWrap: true,
+                    overflow: TextOverflow.visible,
+                    style: AppTextStyle.buttonText(valueTextSize, btnTextColor),
+                  ),
                 ),
               ],
             )
@@ -69,17 +74,22 @@ class MainButton extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                Text(
-                  btnText,
-                  style: AppTextStyle.buttonText(valueTextSize, btnTextColor),
+                Flexible(
+                  child: Text(
+                    btnText,
+                    softWrap: true,
+                    overflow: TextOverflow.visible,
+                    style: AppTextStyle.miniDefaultDescriptionText(
+                        valueTextSize, btnTextColor),
+                  ),
                 ),
               ],
             );
     }
 
     return Container(
-      width: valueResult * withScaleFactor,
-      height: btnHeight,
+      width: valueBtnDimension * withScaleFactor,
+      height: valueBtnDimension * heightScaleFactor,
       margin: EdgeInsets.symmetric(
         vertical: btnMarginVertical,
         horizontal: btnMarginHorizontal,

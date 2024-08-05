@@ -110,9 +110,6 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -144,9 +141,6 @@ class LoginScreen extends StatelessWidget {
                       style:
                           AppTextStyle.miniBoldDescriptionText(valueTextSize),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 70,
                   ),
                 ],
               ),

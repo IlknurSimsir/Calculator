@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class SmallButton extends StatelessWidget {
   final String btnText;
   final IconData? icon;
-  final double btnHeight;
+
   final Function() onPressed;
   final double btnBorderRadius;
 
@@ -12,7 +12,6 @@ class SmallButton extends StatelessWidget {
     super.key,
     required this.btnText,
     this.icon,
-    required this.btnHeight,
     required this.onPressed,
     required this.btnBorderRadius,
   });
@@ -25,9 +24,9 @@ class SmallButton extends StatelessWidget {
         btnBorderColor: Colors.greenAccent,
         btnBorderRadius: btnBorderRadius,
         icon: icon,
-        withScaleFactor: 0.3,
-        btnTextColor: Colors.black,
-        btnHeight: btnHeight,
+        withScaleFactor: 2,
+        btnTextColor: Color.fromARGB(255, 134, 134, 134),
+        heightScaleFactor: 1.5,
         btnMarginVertical: 2,
         btnMarginHorizontal: 2,
         btnPaddingVertical: 2,
@@ -40,7 +39,7 @@ class SmallButton extends StatelessWidget {
 class MidButton extends StatelessWidget {
   final String btnText;
   final IconData? icon;
-  final double btnHeight;
+
   final Function() onPressed;
   final double btnBorderRadius;
 
@@ -48,7 +47,6 @@ class MidButton extends StatelessWidget {
     super.key,
     required this.btnText,
     this.icon,
-    required this.btnHeight,
     required this.onPressed,
     required this.btnBorderRadius,
   });
@@ -61,9 +59,9 @@ class MidButton extends StatelessWidget {
         btnBorderColor: Colors.greenAccent,
         btnBorderRadius: btnBorderRadius,
         icon: icon,
-        withScaleFactor: 0.7,
+        withScaleFactor: 4,
         btnTextColor: Colors.black,
-        btnHeight: btnHeight,
+        heightScaleFactor: 3,
         btnMarginVertical: 2,
         btnMarginHorizontal: 2,
         btnPaddingVertical: 2,
@@ -76,7 +74,6 @@ class MidButton extends StatelessWidget {
 class LargeButton extends StatelessWidget {
   final String btnText;
   final IconData? icon;
-  final double btnHeight;
   final Function() onPressed;
   final double btnBorderRadius;
 
@@ -84,7 +81,6 @@ class LargeButton extends StatelessWidget {
     super.key,
     required this.btnText,
     this.icon,
-    required this.btnHeight,
     required this.onPressed,
     required this.btnBorderRadius,
   });
@@ -97,9 +93,9 @@ class LargeButton extends StatelessWidget {
         btnBorderColor: Colors.greenAccent,
         btnBorderRadius: btnBorderRadius,
         icon: icon,
-        withScaleFactor: 1.4,
+        withScaleFactor: 6,
         btnTextColor: Colors.black,
-        btnHeight: btnHeight,
+        heightScaleFactor: 4,
         btnMarginVertical: 2,
         btnMarginHorizontal: 2,
         btnPaddingVertical: 2,
@@ -111,7 +107,6 @@ class LargeButton extends StatelessWidget {
 
 class QuizChoiceButton extends StatelessWidget {
   final String btnText;
-
   final Function()? onPressed;
 
   const QuizChoiceButton({
@@ -127,14 +122,47 @@ class QuizChoiceButton extends StatelessWidget {
       btnColor: const Color.fromARGB(255, 160, 160, 160),
       btnBorderColor: const Color.fromARGB(255, 76, 76, 76),
       btnBorderRadius: 30,
-      withScaleFactor: 1.3,
+      withScaleFactor: 6,
       btnTextColor: const Color.fromARGB(255, 255, 255, 255),
-      btnHeight: 35,
+      heightScaleFactor: 1,
       btnMarginVertical: 5,
       btnMarginHorizontal: 2,
       btnPaddingVertical: 2,
       btnPaddingHorizontal: 2,
       isRow: false,
+      onPressed: () {},
+    );
+  }
+}
+
+class ContactButton extends StatelessWidget {
+  final String btnText;
+  final Function()? onPressed;
+  final IconData? icon;
+
+  const ContactButton({
+    super.key,
+    required this.btnText,
+    this.onPressed,
+    this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MainButton(
+      icon: icon,
+      btnText: btnText,
+      btnColor: const Color.fromARGB(255, 255, 255, 255),
+      btnBorderColor: const Color.fromARGB(255, 204, 204, 204),
+      btnBorderRadius: 30,
+      withScaleFactor: 8,
+      btnTextColor: const Color.fromARGB(255, 0, 0, 0),
+      heightScaleFactor: 1.5,
+      btnMarginVertical: 5,
+      btnMarginHorizontal: 2,
+      btnPaddingVertical: 2,
+      btnPaddingHorizontal: 2,
+      isRow: true,
       onPressed: () {},
     );
   }

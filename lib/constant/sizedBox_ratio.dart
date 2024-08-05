@@ -19,6 +19,12 @@ class SizedboxRatio {
     );
   }
 
+  static SizedBox sizedBoxMinScale(double width) {
+    return SizedBox(
+      height: width * 0.05,
+    );
+  }
+
   static SizedBox sizedBoxWithScale(double width, int scale) {
     return SizedBox(
       height: width * scale * 0.01,

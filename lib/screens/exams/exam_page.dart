@@ -16,6 +16,7 @@ class ExamPage extends StatelessWidget {
         ScreenSize.screenWidthControl(screenWidth)['valueTextSize']!;
     double valueResult =
         ScreenSize.screenWidthControl(screenWidth)['valueResult']!;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepOrange,
@@ -28,46 +29,45 @@ class ExamPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
-          margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                "assets/images/welcome.svg",
-                height: valueResult / 2,
-                width: double.infinity,
+                "assets/images/history_hitit.svg",
+                height: 110,
+                width: 100,
                 fit: BoxFit.cover,
               ),
               Text(
-                "Lorem Ipsum It is a long established fact that a reader will be distracted ?",
+                "YuKarıdaki resim hangi döneme aittir YuKarıdaki resim hangi döneme aittir YuKarıdaki resim hangi döneme aittir YuKarıdaki resim hangi döneme aittir?",
                 style: AppTextStyle.quizQuestionText(valueTextSize),
               ),
-              SizedboxRatio.sizedBox1quarter(valueResult),
+              SizedboxRatio.sizedBoxMinScale(valueResult),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Column(
                     children: [
-                      QuizChoiceButton(btnText: "Adana"),
-                      QuizChoiceButton(btnText: "Bursa"),
-                      QuizChoiceButton(btnText: "Ceyhan"),
-                      QuizChoiceButton(btnText: "Denizli"),
+                      QuizChoiceButton(btnText: "Bizans"),
+                      QuizChoiceButton(btnText: "Amerika"),
+                      QuizChoiceButton(btnText: "Hitit"),
+                      QuizChoiceButton(btnText: "Antakya"),
                     ],
                   ),
                 ],
               ),
-              SizedboxRatio.sizedBoxWithScale(valueResult, 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   MidButton(
                     btnText: "Cevap",
                     btnBorderRadius: 30,
-                    btnHeight: 35,
                     onPressed: () {},
                   ),
                 ],
               ),
+              SizedboxRatio.sizedBoxWithScale(valueResult, 10),
             ],
           ),
         ),
