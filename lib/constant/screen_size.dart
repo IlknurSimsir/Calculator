@@ -34,7 +34,7 @@ class ScreenSize {
       valueBtnDimension = 45;
     } else if (width > 480 && width <= 580) {
       valueResult = width * 0.7;
-      valueTextSize = 11;
+      valueTextSize = 12;
       valueBtnDimension = 30;
     } else if (width > 390 && width <= 480) {
       valueResult = width * 0.7;

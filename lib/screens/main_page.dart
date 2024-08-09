@@ -28,7 +28,7 @@ class MainPage extends StatelessWidget {
           child: Container(
             child: Column(
               children: [
-                SliderImg(),
+                //SliderImg(),
                 Wrap(
                   spacing: 10.0, // Butonlar arasındaki yatay boşluk
                   runSpacing: 10.0, // Satırlar arasındaki dikey boşluk

@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class RoundedButton extends StatelessWidget {
   final String btnText;
   final Color btnColor;
-  // final VoidCallbackAction loginBtnPress;
+  final VoidCallback? onPressed; // Changed to VoidCallback?
+
   const RoundedButton({
     super.key,
     required this.btnText,
     required this.btnColor,
-    required Null Function() onPressed,
-    // required this.loginBtnPress
+    required this.onPressed,
   });
 
   @override
@@ -21,13 +21,15 @@ class RoundedButton extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
         child: TextButton(
-          onPressed: () {},
+          onPressed:
+              onPressed, // This now correctly matches TextButton's onPressed type
           style: TextButton.styleFrom(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-              backgroundColor: btnColor),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            backgroundColor: btnColor,
+          ),
           child: Text(
             btnText,
-            // style: AppTextStyle.MIDDLE_BUTTON_TEXT,
+            style: TextStyle(color: Colors.white),
           ),
         ),
       ),

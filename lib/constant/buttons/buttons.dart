@@ -55,10 +55,10 @@ class MidButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainButton(
         btnText: btnText,
-        btnColor: Colors.amber,
+        btnColor: const Color.fromARGB(255, 255, 160, 7),
         btnBorderColor: Colors.greenAccent,
         btnBorderRadius: btnBorderRadius,
-        icon: icon,
+        icon: icon ?? Icons.abc_rounded,
         withScaleFactor: 4,
         btnTextColor: Colors.black,
         heightScaleFactor: 3,

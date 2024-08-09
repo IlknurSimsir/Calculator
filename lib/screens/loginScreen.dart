@@ -3,12 +3,45 @@ import 'package:first_app/components/rounded_input_fields.dart';
 import 'package:first_app/components/square_box.dart';
 import 'package:first_app/constant/app_text_style.dart';
 import 'package:first_app/constant/width.dart';
+import 'package:first_app/screens/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:first_app/constant/screen_size.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  String email = '';
+  String password = '';
+
+  // Predefined credentials
+  final String defaultEmail = 'user@example.com';
+  final String defaultPassword = 'password123';
+
+  void checkCredentialsAndLogin(BuildContext context) {
+    if (email == defaultEmail && password == defaultPassword) {
+      // Credentials are correct, navigate to Main_Page
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                MainPage()), // Ensure MainPage is the correct name of your main page widget
+      );
+    } else {
+      // Credentials are incorrect, show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('You entered an incorrect e-mail or password'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,14 +91,22 @@ class LoginScreen extends StatelessWidget {
                           isEmail: true,
                           isPassword: false,
                           icon: Icons.mail,
-                          onChange: (value) {},
+                          onChange: (value) {
+                            setState(() {
+                              email = value;
+                            });
+                          },
                         ),
                         RoundedInputFields(
                           hintText: "Password",
                           isEmail: false,
                           isPassword: true,
                           icon: Icons.password,
-                          onChange: (value) {},
+                          onChange: (value) {
+                            setState(() {
+                              password = value;
+                            });
+                          },
                         ),
                         Text(
                           "Forget your password?",
@@ -74,7 +115,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                         RoundedButton(
                           btnText: "LOGIN",
-                          onPressed: () {},
+                          onPressed: () => checkCredentialsAndLogin(context),
                           btnColor: Color.fromARGB(255, 19, 153, 255),
                         ),
                       ],
