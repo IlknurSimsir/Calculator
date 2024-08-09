@@ -40,7 +40,7 @@ class ExamPage extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
               Text(
-                "YuKarıdaki resim hangi döneme aittir YuKarıdaki resim hangi döneme aittir YuKarıdaki resim hangi döneme aittir YuKarıdaki resim hangi döneme aittir?",
+                "Soru?",
                 style: AppTextStyle.quizQuestionText(valueTextSize),
               ),
               SizedboxRatio.sizedBoxMinScale(valueResult),

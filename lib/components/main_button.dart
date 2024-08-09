@@ -17,7 +17,7 @@ class MainButton extends StatelessWidget {
   final double btnPaddingVertical;
   final double btnPaddingHorizontal;
   final bool isRow;
-  final Function() onPressed;
+  final VoidCallback onPressed;
 
   const MainButton({
     super.key,

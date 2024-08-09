@@ -137,13 +137,13 @@ class QuizChoiceButton extends StatelessWidget {
 
 class ContactButton extends StatelessWidget {
   final String btnText;
-  final Function()? onPressed;
+  final VoidCallback onPressed;
   final IconData? icon;
 
   const ContactButton({
     super.key,
     required this.btnText,
-    this.onPressed,
+    required this.onPressed,
     this.icon,
   });
 
@@ -163,7 +163,7 @@ class ContactButton extends StatelessWidget {
       btnPaddingVertical: 2,
       btnPaddingHorizontal: 2,
       isRow: true,
-      onPressed: () {},
+      onPressed: onPressed,
     );
   }
 }
