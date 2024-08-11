@@ -16,6 +16,10 @@ class ExamPage extends StatefulWidget {
 class _ExamPageState extends State<ExamPage> {
   var questionNumber = 0;
   var numberOfTrueAnswers = 0;
+  bool isTrue = false;
+  List<Map<String, dynamic>> userAnswers = [];
+  String? correctAnswer;
+  String? selectedAnswer;
   final questionList = [
     {
       "question": "aşağıdakilerden hangisi ada ülkesidir?",
@@ -36,9 +40,21 @@ class _ExamPageState extends State<ExamPage> {
 
   void handleAnswerSelected(String answer) {
     setState(() {
-      if (answer == questionList[questionNumber]["trueAnswer"]) {
+      selectedAnswer = answer;
+      correctAnswer = questionList[questionNumber]["trueAnswer"] as String;
+      isTrue = answer == correctAnswer;
+      if (isTrue) {
         numberOfTrueAnswers++;
       }
+
+      // Kullanıcının cevabını listeye ekleyelim
+      userAnswers.add({
+        'questionNumber': questionNumber,
+        'question': questionList[questionNumber]["question"],
+        'userAnswer': answer,
+        'correctAnswer': correctAnswer,
+        'isCorrect': isTrue,
+      });
     });
   }
 
@@ -46,6 +62,10 @@ class _ExamPageState extends State<ExamPage> {
     setState(() {
       questionNumber = 0;
       numberOfTrueAnswers = 0;
+      selectedAnswer = null;
+      correctAnswer = null;
+      isTrue = false;
+      userAnswers.clear(); // Cevap listesini temizleyelim
     });
   }
 
@@ -53,6 +73,20 @@ class _ExamPageState extends State<ExamPage> {
     setState(() {
       if (questionNumber < questionList.length - 1) {
         questionNumber++;
+        // Eğer bu soru daha önce cevaplandıysa, cevabı gösterelim
+        var previousAnswer = userAnswers.firstWhere(
+          (answer) => answer['questionNumber'] == questionNumber,
+          orElse: () => {},
+        );
+        if (previousAnswer.isNotEmpty) {
+          selectedAnswer = previousAnswer['userAnswer'];
+          isTrue = previousAnswer['isCorrect'];
+          correctAnswer = previousAnswer['correctAnswer'];
+        } else {
+          selectedAnswer = null;
+          isTrue = false;
+          correctAnswer = null;
+        }
       }
     });
   }
@@ -61,6 +95,20 @@ class _ExamPageState extends State<ExamPage> {
     setState(() {
       if (questionNumber > 0) {
         questionNumber--;
+        // Eğer bu soru daha önce cevaplandıysa, cevabı gösterelim
+        var previousAnswer = userAnswers.firstWhere(
+          (answer) => answer['questionNumber'] == questionNumber,
+          orElse: () => {},
+        );
+        if (previousAnswer.isNotEmpty) {
+          selectedAnswer = previousAnswer['userAnswer'];
+          isTrue = previousAnswer['isCorrect'];
+          correctAnswer = previousAnswer['correctAnswer'];
+        } else {
+          selectedAnswer = null;
+          isTrue = false;
+          correctAnswer = null;
+        }
       }
     });
   }
@@ -128,6 +176,9 @@ class _ExamPageState extends State<ExamPage> {
                               alignment: Alignment.center,
                               child: QuizChoiceButton(
                                 btnText: answer,
+                                isTrue: isTrue,
+                                isSelected: selectedAnswer == answer,
+                                correctAnswer: correctAnswer, // Yeni eklenen
                                 onPressed: () {
                                   handleAnswerSelected(answer);
                                 },
@@ -162,6 +213,18 @@ class _ExamPageState extends State<ExamPage> {
                           style: AppTextStyle.quizQuestionText(valueTextSize),
                           textAlign: TextAlign.center,
                         ),
+                        SizedboxRatio.sizedBoxMinScale(valueResult),
+                        // Cevapları listeleyelim
+                        ...userAnswers
+                            .map((answer) => ListTile(
+                                  title: Text(answer['question'] as String),
+                                  subtitle: Text(
+                                      "Cevabınız: ${answer['userAnswer']}\nDoğru Cevap: ${answer['correctAnswer']}"),
+                                  tileColor: answer['isCorrect']
+                                      ? Colors.green[100]
+                                      : Colors.red[100],
+                                ))
+                            .toList(),
                         IconButton(
                           onPressed: restart,
                           icon: const Icon(Icons.restart_alt),

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 class SmallButton extends StatelessWidget {
   final String btnText;
   final IconData? icon;
-
   final Function() onPressed;
   final double btnBorderRadius;
 
@@ -25,7 +24,7 @@ class SmallButton extends StatelessWidget {
         btnBorderRadius: btnBorderRadius,
         icon: icon,
         withScaleFactor: 2,
-        btnTextColor: Color.fromARGB(255, 134, 134, 134),
+        btnTextColor: const Color.fromARGB(255, 134, 134, 134),
         heightScaleFactor: 1.5,
         btnMarginVertical: 2,
         btnMarginHorizontal: 2,
@@ -39,7 +38,6 @@ class SmallButton extends StatelessWidget {
 class MidButton extends StatelessWidget {
   final String btnText;
   final IconData? icon;
-
   final Function() onPressed;
   final double btnBorderRadius;
 
@@ -108,18 +106,32 @@ class LargeButton extends StatelessWidget {
 class QuizChoiceButton extends StatelessWidget {
   final String btnText;
   final VoidCallback onPressed;
+  final bool isSelected;
+  final bool isTrue;
+  final String? correctAnswer;
 
   const QuizChoiceButton({
     super.key,
     required this.btnText,
     required this.onPressed,
+    required this.isSelected,
+    required this.isTrue,
+    required this.correctAnswer,
   });
 
   @override
   Widget build(BuildContext context) {
+    Color btnColor;
+    if (isSelected) {
+      btnColor = isTrue ? Colors.green : Colors.red;
+    } else if (correctAnswer == btnText && isSelected != null) {
+      btnColor = Colors.green;
+    } else {
+      btnColor = const Color.fromARGB(255, 160, 160, 160);
+    }
     return MainButton(
       btnText: btnText,
-      btnColor: const Color.fromARGB(255, 160, 160, 160),
+      btnColor: btnColor,
       btnBorderColor: const Color.fromARGB(255, 76, 76, 76),
       btnBorderRadius: 30,
       withScaleFactor: 6,
