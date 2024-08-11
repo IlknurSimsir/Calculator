@@ -3,6 +3,7 @@ import 'package:first_app/constant/buttons/buttons.dart';
 import 'package:first_app/constant/screen_size.dart';
 import 'package:first_app/constant/sizedBox_ratio.dart';
 import 'package:first_app/constant/width.dart';
+import 'package:first_app/screens/exams/exam_result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -133,113 +134,106 @@ class _ExamPageState extends State<ExamPage> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
-          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-          child: questionNumber < questionList.length
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      "assets/images/history_hitit.svg",
-                      height: 110,
-                      width: 100,
-                      fit: BoxFit.cover,
-                    ),
-                    Text(
-                      questionList[questionNumber]["question"] as String,
-                      style: AppTextStyle.quizQuestionText(valueTextSize),
-                    ),
-                    SizedboxRatio.sizedBoxMinScale(valueResult),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        IconButton(
-                          onPressed: previous,
-                          icon: (questionNumber == 0)
-                              ? SizedBox(
-                                  width: valueTextSize * 2.5,
-                                )
-                              : const Icon(Icons.skip_previous),
-                          style: IconButton.styleFrom(
-                            iconSize: valueTextSize * 2.5,
-                            foregroundColor: const Color.fromARGB(137, 0, 0, 0),
-                            hoverColor: Colors.transparent,
-                            splashFactory: NoSplash.splashFactory,
-                          ),
-                        ),
-                        Column(
-                          children: (questionList[questionNumber]["answer"]
-                                  as List<String>)
-                              .map((answer) {
-                            return Container(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 4.0),
-                              alignment: Alignment.center,
-                              child: QuizChoiceButton(
-                                btnText: answer,
-                                isTrue: isTrue,
-                                isSelected: selectedAnswer == answer,
-                                correctAnswer: correctAnswer,
-                                onPressed: () => handleAnswerSelected(
-                                    answer), // Bu şekilde doğrudan fonksiyonu çağırıyoruz
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                        IconButton(
-                          onPressed: next,
-                          icon: (questionNumber == (questionList.length - 1))
-                              ? SizedBox(
-                                  width: valueTextSize * 2.5,
-                                )
-                              : const Icon(Icons.skip_next),
-                          style: IconButton.styleFrom(
-                            iconSize: valueTextSize * 2.5,
-                            foregroundColor: const Color.fromARGB(137, 0, 0, 0),
-                            hoverColor: Colors.transparent,
-                            splashFactory: NoSplash.splashFactory,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-              : Container(
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          "Quiz Bitti! Sonuç Ekranı\nSenin skorun: $numberOfTrueAnswers",
-                          style: AppTextStyle.quizQuestionText(valueTextSize),
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedboxRatio.sizedBoxMinScale(valueResult),
-                        // Cevapları listeleyelim
-                        ...userAnswers
-                            .map((answer) => ListTile(
-                                  title: Text(answer['question'] as String),
-                                  subtitle: Text(
-                                      "Cevabınız: ${answer['userAnswer']}\nDoğru Cevap: ${answer['correctAnswer']}"),
-                                  tileColor: answer['isCorrect']
-                                      ? Colors.green[100]
-                                      : Colors.red[100],
-                                ))
-                            .toList(),
-                        IconButton(
-                          onPressed: restart,
-                          icon: const Icon(Icons.restart_alt),
-                          style: IconButton.styleFrom(
-                              iconSize: valueTextSize * 2.5,
-                              foregroundColor:
-                                  const Color.fromARGB(137, 0, 0, 0)),
-                        ),
-                      ],
-                    ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
+              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    "assets/images/history_hitit.svg",
+                    height: 110,
+                    width: 100,
+                    fit: BoxFit.cover,
                   ),
-                ),
-        ),
+                  Text(
+                    questionList[questionNumber]["question"] as String,
+                    style: AppTextStyle.quizQuestionText(valueTextSize),
+                  ),
+                  SizedboxRatio.sizedBoxMinScale(valueResult),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                        onPressed: previous,
+                        icon: (questionNumber == 0)
+                            ? SizedBox(
+                                width: valueTextSize * 2.5,
+                              )
+                            : const Icon(Icons.skip_previous),
+                        style: IconButton.styleFrom(
+                          iconSize: valueTextSize * 2.5,
+                          foregroundColor: const Color.fromARGB(137, 0, 0, 0),
+                          hoverColor: Colors.transparent,
+                          splashFactory: NoSplash.splashFactory,
+                        ),
+                      ),
+                      Column(
+                        children: (questionList[questionNumber]["answer"]
+                                as List<String>)
+                            .map((answer) {
+                          return Container(
+                            padding: const EdgeInsets.symmetric(vertical: 4.0),
+                            alignment: Alignment.center,
+                            child: QuizChoiceButton(
+                              btnText: answer,
+                              isTrue: isTrue,
+                              isSelected: selectedAnswer == answer,
+                              correctAnswer: correctAnswer,
+                              onPressed: () => handleAnswerSelected(answer),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      IconButton(
+                        onPressed: next,
+                        icon: (questionNumber == (questionList.length - 1))
+                            ? SizedBox(
+                                width: valueTextSize * 2.5,
+                              )
+                            : const Icon(Icons.skip_next),
+                        style: IconButton.styleFrom(
+                          iconSize: valueTextSize * 2.5,
+                          foregroundColor: const Color.fromARGB(137, 0, 0, 0),
+                          hoverColor: Colors.transparent,
+                          splashFactory: NoSplash.splashFactory,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SmallButton(
+                    btnText: "Sınavı Bitir",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ExamResultPage(
+                            numberOfTrueAnswers: numberOfTrueAnswers,
+                            userAnswers: userAnswers,
+                            questionList: questionList,
+                          ),
+                        ),
+                      );
+                    },
+                    btnBorderRadius: 20),
+              ],
+            ),
+          ),
+          SizedboxRatio.sizedBox1quarter(valueResult),
+        ],
       ),
     );
   }

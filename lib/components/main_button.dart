@@ -40,8 +40,7 @@ class MainButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = Width(context);
-    double valueResult =
-        ScreenSize.screenWidthControl(screenWidth)['valueResult']!;
+
     double valueTextSize =
         ScreenSize.screenWidthControl(screenWidth)['valueTextSize']!;
     double valueBtnDimension =
