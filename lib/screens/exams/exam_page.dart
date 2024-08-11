@@ -19,26 +19,30 @@ class _ExamPageState extends State<ExamPage> {
     {
       "question": "aşağıdakilerden hangisi ada ülkesidir?",
       "answer": ["Bolu", "Makarna", "Paris"],
+      "trueAnswer": "Makarna"
     },
     {
       "question": "aşağıdakilerden hangisi daha büyüktür?",
       "answer": ["Balon", "Makas", "Hava"],
+      "trueAnswer": "Makas"
     },
     {
       "question": "aşağıdakilerden hangisi yemektir?",
       "answer": ["Sırma", "Makarna", "Martı"],
+      "trueAnswer": "Sırma"
     },
   ];
 
   void increaseQuestionNumber() {
     setState(() {
+      // if (questionList["trueAnswer"] == sele) {}
       if (questionNumber < questionList.length - 1) {
         questionNumber++;
+        print(questionList[questionNumber]["answer"]);
       } else {
-        // Tüm sorular bitti, burada quiz'i bitirebilir veya başa dönebilirsiniz
-        print("Quiz bitti!");
-        // Örneğin, başa dönmek için:
-        // questionNumber = 0;
+        // Son soruya gelindiğinde questionNumber'ı questionList.length yaparak
+        // sonuç ekranına geçmesini sağlıyoruz
+        questionNumber = questionList.length;
       }
     });
   }
@@ -50,8 +54,6 @@ class _ExamPageState extends State<ExamPage> {
         ScreenSize.screenWidthControl(screenWidth)['valueTextSize']!;
     double valueResult =
         ScreenSize.screenWidthControl(screenWidth)['valueResult']!;
-    List<String> currentAnswers =
-        (questionList[questionNumber]["answer"] as List).cast<String>();
 
     return Scaffold(
       appBar: AppBar(
@@ -66,43 +68,54 @@ class _ExamPageState extends State<ExamPage> {
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
           margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                "assets/images/history_hitit.svg",
-                height: 110,
-                width: 100,
-                fit: BoxFit.cover,
-              ),
-              Text(
-                questionList[questionNumber]["question"] as String,
-                style: AppTextStyle.quizQuestionText(valueTextSize),
-              ),
-              SizedboxRatio.sizedBoxMinScale(valueResult),
-              Column(
-                children: currentAnswers.map((answer) {
-                  return Container(
-                    padding: const EdgeInsets.symmetric(vertical: 4.0),
-                    alignment: Alignment.center,
-                    child: QuizChoiceButton(
-                      btnText: answer,
-                      onPressed: increaseQuestionNumber,
+          child: questionNumber < questionList.length
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      "assets/images/history_hitit.svg",
+                      height: 110,
+                      width: 100,
+                      fit: BoxFit.cover,
                     ),
-                  );
-                }).toList(),
-              ),
-              SizedboxRatio.sizedBoxMinScale(valueResult),
-              MidButton(
-                btnText: "Cevap",
-                btnBorderRadius: 30,
-                onPressed: () {
-                  // Cevap butonuna basıldığında yapılacak işlemler
-                },
-              ),
-              SizedboxRatio.sizedBoxWithScale(valueResult, 10),
-            ],
-          ),
+                    Text(
+                      questionList[questionNumber]["question"] as String,
+                      style: AppTextStyle.quizQuestionText(valueTextSize),
+                    ),
+                    SizedboxRatio.sizedBoxMinScale(valueResult),
+                    Column(
+                      children: (questionList[questionNumber]["answer"]
+                              as List<String>)
+                          .map((answer) {
+                        return Container(
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          alignment: Alignment.center,
+                          child: QuizChoiceButton(
+                            btnText: answer,
+                            onPressed: increaseQuestionNumber,
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                    SizedboxRatio.sizedBoxMinScale(valueResult),
+                    MidButton(
+                      btnText: "Cevap",
+                      btnBorderRadius: 30,
+                      onPressed: () {
+                        // Cevap butonuna basıldığında yapılacak işlemler
+                      },
+                    ),
+                    SizedboxRatio.sizedBoxWithScale(valueResult, 10),
+                  ],
+                )
+              : Container(
+                  child: Center(
+                    child: Text(
+                      "Quiz Bitti! Sonuç Ekranı",
+                      style: AppTextStyle.quizQuestionText(valueTextSize),
+                    ),
+                  ),
+                ),
         ),
       ),
     );

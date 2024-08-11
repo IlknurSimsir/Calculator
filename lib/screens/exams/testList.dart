@@ -11,15 +11,15 @@ class TestList extends StatefulWidget {
 
 class _TestListState extends State<TestList> {
   List questions = [
-    "Soru 1",
-    "Soru 2",
-    "Soru 3",
-    "Soru 4",
-    "Soru 5",
-    "Soru 6",
-    "Soru 7",
-    "Soru 8",
-    "Soru 9",
+    "Test 1",
+    "Test 2",
+    "Test 3",
+    "Test 4",
+    "Test 5",
+    "Test 6",
+    "Test 7",
+    "Test 8",
+    "Test 9",
   ];
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class _TestListState extends State<TestList> {
       body: ListView.separated(
           itemBuilder: (context, index) => ListTile(
                 title: Text(questions[index]),
-                subtitle: Text("Soru adı : $index"),
+                subtitle: Text("Test adı : $index"),
                 trailing: const Icon(Icons.chevron_right),
                 tileColor: const Color.fromARGB(255, 238, 238, 238),
                 onTap: () {
