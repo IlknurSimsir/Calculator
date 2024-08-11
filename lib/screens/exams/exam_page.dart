@@ -35,15 +35,9 @@ class _ExamPageState extends State<ExamPage> {
   ];
 
   void handleAnswerSelected(String answer) {
-    if (answer == questionList[questionNumber]["trueAnswer"]) {
-      numberOfTrueAnswers++;
-    }
-
     setState(() {
-      if (questionNumber < questionList.length - 1) {
-        questionNumber++;
-      } else {
-        questionNumber = questionList.length;
+      if (answer == questionList[questionNumber]["trueAnswer"]) {
+        numberOfTrueAnswers++;
       }
     });
   }
@@ -52,6 +46,22 @@ class _ExamPageState extends State<ExamPage> {
     setState(() {
       questionNumber = 0;
       numberOfTrueAnswers = 0;
+    });
+  }
+
+  void next() {
+    setState(() {
+      if (questionNumber < questionList.length - 1) {
+        questionNumber++;
+      }
+    });
+  }
+
+  void previous() {
+    setState(() {
+      if (questionNumber > 0) {
+        questionNumber--;
+      }
     });
   }
 
@@ -91,31 +101,56 @@ class _ExamPageState extends State<ExamPage> {
                       style: AppTextStyle.quizQuestionText(valueTextSize),
                     ),
                     SizedboxRatio.sizedBoxMinScale(valueResult),
-                    Column(
-                      children: (questionList[questionNumber]["answer"]
-                              as List<String>)
-                          .map((answer) {
-                        return Container(
-                          padding: const EdgeInsets.symmetric(vertical: 4.0),
-                          alignment: Alignment.center,
-                          child: QuizChoiceButton(
-                            btnText: answer,
-                            onPressed: () {
-                              handleAnswerSelected(answer);
-                            },
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        IconButton(
+                          onPressed: previous,
+                          icon: (questionNumber == 0)
+                              ? SizedBox(
+                                  width: valueTextSize * 2.5,
+                                )
+                              : const Icon(Icons.skip_previous),
+                          style: IconButton.styleFrom(
+                            iconSize: valueTextSize * 2.5,
+                            foregroundColor: const Color.fromARGB(137, 0, 0, 0),
+                            hoverColor: Colors.transparent,
+                            splashFactory: NoSplash.splashFactory,
                           ),
-                        );
-                      }).toList(),
+                        ),
+                        Column(
+                          children: (questionList[questionNumber]["answer"]
+                                  as List<String>)
+                              .map((answer) {
+                            return Container(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 4.0),
+                              alignment: Alignment.center,
+                              child: QuizChoiceButton(
+                                btnText: answer,
+                                onPressed: () {
+                                  handleAnswerSelected(answer);
+                                },
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                        IconButton(
+                          onPressed: next,
+                          icon: (questionNumber == (questionList.length - 1))
+                              ? SizedBox(
+                                  width: valueTextSize * 2.5,
+                                )
+                              : const Icon(Icons.skip_next),
+                          style: IconButton.styleFrom(
+                            iconSize: valueTextSize * 2.5,
+                            foregroundColor: const Color.fromARGB(137, 0, 0, 0),
+                            hoverColor: Colors.transparent,
+                            splashFactory: NoSplash.splashFactory,
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedboxRatio.sizedBoxMinScale(valueResult),
-                    MidButton(
-                      btnText: "Cevap",
-                      btnBorderRadius: 30,
-                      onPressed: () {
-                        // Cevap butonuna basıldığında yapılacak işlemler
-                      },
-                    ),
-                    SizedboxRatio.sizedBoxWithScale(valueResult, 10),
                   ],
                 )
               : Container(
