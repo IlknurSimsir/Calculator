@@ -116,7 +116,7 @@ class QuizChoiceButton extends StatelessWidget {
     required this.onPressed,
     required this.isSelected,
     required this.isTrue,
-    required this.correctAnswer,
+    this.correctAnswer,
   });
 
   @override
@@ -124,7 +124,7 @@ class QuizChoiceButton extends StatelessWidget {
     Color btnColor;
     if (isSelected) {
       btnColor = isTrue ? Colors.green : Colors.red;
-    } else if (correctAnswer == btnText && isSelected != null) {
+    } else if (correctAnswer == btnText && correctAnswer != null) {
       btnColor = Colors.green;
     } else {
       btnColor = const Color.fromARGB(255, 160, 160, 160);

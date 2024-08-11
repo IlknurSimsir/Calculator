@@ -39,23 +39,26 @@ class _ExamPageState extends State<ExamPage> {
   ];
 
   void handleAnswerSelected(String answer) {
-    setState(() {
-      selectedAnswer = answer;
-      correctAnswer = questionList[questionNumber]["trueAnswer"] as String;
-      isTrue = answer == correctAnswer;
-      if (isTrue) {
-        numberOfTrueAnswers++;
-      }
+    if (selectedAnswer == null) {
+      // Eğer kullanıcı henüz bir şık seçmediyse
+      setState(() {
+        selectedAnswer = answer;
+        correctAnswer = questionList[questionNumber]["trueAnswer"] as String;
+        isTrue = answer == correctAnswer;
+        if (isTrue) {
+          numberOfTrueAnswers++;
+        }
 
-      // Kullanıcının cevabını listeye ekleyelim
-      userAnswers.add({
-        'questionNumber': questionNumber,
-        'question': questionList[questionNumber]["question"],
-        'userAnswer': answer,
-        'correctAnswer': correctAnswer,
-        'isCorrect': isTrue,
+        // Kullanıcının cevabını listeye ekleyelim
+        userAnswers.add({
+          'questionNumber': questionNumber,
+          'question': questionList[questionNumber]["question"],
+          'userAnswer': answer,
+          'correctAnswer': correctAnswer,
+          'isCorrect': isTrue,
+        });
       });
-    });
+    }
   }
 
   void restart() {
@@ -178,10 +181,9 @@ class _ExamPageState extends State<ExamPage> {
                                 btnText: answer,
                                 isTrue: isTrue,
                                 isSelected: selectedAnswer == answer,
-                                correctAnswer: correctAnswer, // Yeni eklenen
-                                onPressed: () {
-                                  handleAnswerSelected(answer);
-                                },
+                                correctAnswer: correctAnswer,
+                                onPressed: () => handleAnswerSelected(
+                                    answer), // Bu şekilde doğrudan fonksiyonu çağırıyoruz
                               ),
                             );
                           }).toList(),
