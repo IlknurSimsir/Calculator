@@ -107,12 +107,12 @@ class LargeButton extends StatelessWidget {
 
 class QuizChoiceButton extends StatelessWidget {
   final String btnText;
-  final Function()? onPressed;
+  final VoidCallback onPressed;
 
   const QuizChoiceButton({
     super.key,
     required this.btnText,
-    this.onPressed,
+    required this.onPressed,
   });
 
   @override
@@ -130,7 +130,7 @@ class QuizChoiceButton extends StatelessWidget {
       btnPaddingVertical: 2,
       btnPaddingHorizontal: 2,
       isRow: false,
-      onPressed: () {},
+      onPressed: onPressed,
     );
   }
 }

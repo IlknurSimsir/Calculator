@@ -6,8 +6,42 @@ import 'package:first_app/constant/width.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ExamPage extends StatelessWidget {
+class ExamPage extends StatefulWidget {
   const ExamPage({super.key});
+
+  @override
+  State<ExamPage> createState() => _ExamPageState();
+}
+
+class _ExamPageState extends State<ExamPage> {
+  var questionNumber = 0;
+  final questionList = [
+    {
+      "question": "aşağıdakilerden hangisi ada ülkesidir?",
+      "answer": ["Bolu", "Makarna", "Paris"],
+    },
+    {
+      "question": "aşağıdakilerden hangisi daha büyüktür?",
+      "answer": ["Balon", "Makas", "Hava"],
+    },
+    {
+      "question": "aşağıdakilerden hangisi yemektir?",
+      "answer": ["Sırma", "Makarna", "Martı"],
+    },
+  ];
+
+  void increaseQuestionNumber() {
+    setState(() {
+      if (questionNumber < questionList.length - 1) {
+        questionNumber++;
+      } else {
+        // Tüm sorular bitti, burada quiz'i bitirebilir veya başa dönebilirsiniz
+        print("Quiz bitti!");
+        // Örneğin, başa dönmek için:
+        // questionNumber = 0;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +50,8 @@ class ExamPage extends StatelessWidget {
         ScreenSize.screenWidthControl(screenWidth)['valueTextSize']!;
     double valueResult =
         ScreenSize.screenWidthControl(screenWidth)['valueResult']!;
+    List<String> currentAnswers =
+        (questionList[questionNumber]["answer"] as List).cast<String>();
 
     return Scaffold(
       appBar: AppBar(
@@ -40,32 +76,29 @@ class ExamPage extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
               Text(
-                "Soru?",
+                questionList[questionNumber]["question"] as String,
                 style: AppTextStyle.quizQuestionText(valueTextSize),
               ),
               SizedboxRatio.sizedBoxMinScale(valueResult),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      QuizChoiceButton(btnText: "Bizans"),
-                      QuizChoiceButton(btnText: "Amerika"),
-                      QuizChoiceButton(btnText: "Hitit"),
-                      QuizChoiceButton(btnText: "Antakya"),
-                    ],
-                  ),
-                ],
+              Column(
+                children: currentAnswers.map((answer) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(vertical: 4.0),
+                    alignment: Alignment.center,
+                    child: QuizChoiceButton(
+                      btnText: answer,
+                      onPressed: increaseQuestionNumber,
+                    ),
+                  );
+                }).toList(),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  MidButton(
-                    btnText: "Cevap",
-                    btnBorderRadius: 30,
-                    onPressed: () {},
-                  ),
-                ],
+              SizedboxRatio.sizedBoxMinScale(valueResult),
+              MidButton(
+                btnText: "Cevap",
+                btnBorderRadius: 30,
+                onPressed: () {
+                  // Cevap butonuna basıldığında yapılacak işlemler
+                },
               ),
               SizedboxRatio.sizedBoxWithScale(valueResult, 10),
             ],
