@@ -15,6 +15,7 @@ class ExamPage extends StatefulWidget {
 
 class _ExamPageState extends State<ExamPage> {
   var questionNumber = 0;
+  var numberOfTrueAnswers = 0;
   final questionList = [
     {
       "question": "aşağıdakilerden hangisi ada ülkesidir?",
@@ -33,17 +34,24 @@ class _ExamPageState extends State<ExamPage> {
     },
   ];
 
-  void increaseQuestionNumber() {
+  void handleAnswerSelected(String answer) {
+    if (answer == questionList[questionNumber]["trueAnswer"]) {
+      numberOfTrueAnswers++;
+    }
+
     setState(() {
-      // if (questionList["trueAnswer"] == sele) {}
       if (questionNumber < questionList.length - 1) {
         questionNumber++;
-        print(questionList[questionNumber]["answer"]);
       } else {
-        // Son soruya gelindiğinde questionNumber'ı questionList.length yaparak
-        // sonuç ekranına geçmesini sağlıyoruz
         questionNumber = questionList.length;
       }
+    });
+  }
+
+  void restart() {
+    setState(() {
+      questionNumber = 0;
+      numberOfTrueAnswers = 0;
     });
   }
 
@@ -92,7 +100,9 @@ class _ExamPageState extends State<ExamPage> {
                           alignment: Alignment.center,
                           child: QuizChoiceButton(
                             btnText: answer,
-                            onPressed: increaseQuestionNumber,
+                            onPressed: () {
+                              handleAnswerSelected(answer);
+                            },
                           ),
                         );
                       }).toList(),
@@ -110,9 +120,22 @@ class _ExamPageState extends State<ExamPage> {
                 )
               : Container(
                   child: Center(
-                    child: Text(
-                      "Quiz Bitti! Sonuç Ekranı",
-                      style: AppTextStyle.quizQuestionText(valueTextSize),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Quiz Bitti! Sonuç Ekranı\nSenin skorun: $numberOfTrueAnswers",
+                          style: AppTextStyle.quizQuestionText(valueTextSize),
+                          textAlign: TextAlign.center,
+                        ),
+                        IconButton(
+                          onPressed: restart,
+                          icon: const Icon(Icons.restart_alt),
+                          style: IconButton.styleFrom(
+                              iconSize: valueTextSize * 2.5,
+                              foregroundColor:
+                                  const Color.fromARGB(137, 0, 0, 0)),
+                        ),
+                      ],
                     ),
                   ),
                 ),
