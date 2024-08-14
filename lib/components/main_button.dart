@@ -1,15 +1,17 @@
 import 'package:first_app/constant/app_text_style.dart';
+import 'package:first_app/constant/colorPalette.dart';
 import 'package:first_app/constant/screen_size.dart';
 import 'package:first_app/constant/width.dart';
 import 'package:flutter/material.dart';
 
 class MainButton extends StatelessWidget {
   final String btnText;
-  final Color btnColor;
-  final Color btnBorderColor;
+  final Color? btnColor;
+  final Color? btnBorderColor;
   final double btnBorderRadius;
-  final Color btnTextColor;
+  final Color? btnTextColor;
   final IconData? icon;
+  final Color? iconColor;
   final double withScaleFactor;
   final double heightScaleFactor;
   final double btnMarginVertical;
@@ -22,10 +24,10 @@ class MainButton extends StatelessWidget {
   const MainButton({
     super.key,
     required this.btnText,
-    required this.btnColor,
-    required this.btnBorderColor,
+    this.btnColor,
+    this.btnBorderColor,
     required this.btnBorderRadius,
-    required this.btnTextColor,
+    this.btnTextColor,
     this.icon,
     required this.withScaleFactor,
     required this.heightScaleFactor,
@@ -35,6 +37,7 @@ class MainButton extends StatelessWidget {
     required this.btnPaddingHorizontal,
     required this.isRow,
     required this.onPressed,
+    this.iconColor,
   });
 
   @override
@@ -51,7 +54,11 @@ class MainButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (icon != null) Icon(icon, color: btnTextColor),
+                if (icon != null)
+                  Icon(icon,
+                      color: (iconColor != null)
+                          ? iconColor
+                          : Colorpalette.iconColor),
                 const SizedBox(
                   width: 5,
                 ),
@@ -69,7 +76,11 @@ class MainButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (icon != null) Icon(icon, color: btnTextColor),
+                if (icon != null)
+                  Icon(icon,
+                      color: (iconColor != null)
+                          ? iconColor
+                          : Colorpalette.iconColor),
                 const SizedBox(
                   height: 5,
                 ),
@@ -78,8 +89,7 @@ class MainButton extends StatelessWidget {
                     btnText,
                     softWrap: true,
                     overflow: TextOverflow.visible,
-                    style: AppTextStyle.miniDefaultDescriptionText(
-                        valueTextSize, btnTextColor),
+                    style: AppTextStyle.buttonText(valueTextSize, btnTextColor),
                   ),
                 ),
               ],
@@ -100,8 +110,10 @@ class MainButton extends StatelessWidget {
       child: TextButton(
         onPressed: onPressed,
         style: TextButton.styleFrom(
-          backgroundColor: btnColor,
-          side: BorderSide(color: btnBorderColor),
+          elevation: 5, // Gölgenin yoğunluğu
+          shadowColor: Colorpalette.greyColor, // Gölgenin rengi
+          backgroundColor: btnColor ?? Colorpalette.whiteColor,
+          side: BorderSide(color: btnBorderColor ?? Colorpalette.borderColor),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(btnBorderRadius),
           ),

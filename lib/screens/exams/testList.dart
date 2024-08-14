@@ -1,3 +1,4 @@
+import 'package:first_app/components/appBarDesign.dart';
 import 'package:first_app/constant/navigate_to.dart';
 import 'package:first_app/screens/exams/exam_page.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ class _TestListState extends State<TestList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBarDesign(),
       body: ListView.separated(
           itemBuilder: (context, index) => ListTile(
                 title: Text(questions[index]),

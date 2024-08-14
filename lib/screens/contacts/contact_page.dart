@@ -1,3 +1,4 @@
+import 'package:first_app/components/appBarDesign.dart';
 import 'package:first_app/constant/buttons/buttons.dart';
 import 'package:first_app/constant/width.dart';
 import 'package:first_app/widgets/images.dart';
@@ -23,6 +24,7 @@ class ContactPage extends StatelessWidget {
         ScreenSize.screenWidthControl(screenWidth)['valueTextSize']!;
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBarDesign(),
       body: Stack(
         children: [
           Column(

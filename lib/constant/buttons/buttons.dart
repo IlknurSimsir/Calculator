@@ -1,4 +1,5 @@
 import 'package:first_app/components/main_button.dart';
+import 'package:first_app/constant/colorPalette.dart';
 import 'package:flutter/material.dart';
 
 class SmallButton extends StatelessWidget {
@@ -19,8 +20,8 @@ class SmallButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainButton(
         btnText: btnText,
-        btnColor: Colors.amber,
-        btnBorderColor: Colors.greenAccent,
+        btnColor: Colorpalette.primaryColor,
+        btnBorderColor: Colorpalette.borderColor,
         btnBorderRadius: btnBorderRadius,
         icon: icon,
         withScaleFactor: 5,
@@ -53,12 +54,12 @@ class MidButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainButton(
         btnText: btnText,
-        btnColor: const Color.fromARGB(255, 255, 160, 7),
-        btnBorderColor: Colors.greenAccent,
+        btnBorderColor: Colorpalette.borderColor,
+        btnColor: Colorpalette.primaryColor,
         btnBorderRadius: btnBorderRadius,
         icon: icon,
         withScaleFactor: 4,
-        btnTextColor: Colors.black,
+        // btnTextColor: Colors.black,
         heightScaleFactor: 3,
         btnMarginVertical: 2,
         btnMarginHorizontal: 2,
@@ -87,8 +88,8 @@ class LargeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainButton(
         btnText: btnText,
-        btnColor: Colors.amber,
-        btnBorderColor: Colors.greenAccent,
+        btnColor: Colorpalette.primaryColor,
+        btnBorderColor: Colorpalette.borderColor,
         btnBorderRadius: btnBorderRadius,
         icon: icon,
         withScaleFactor: 6,
@@ -127,15 +128,15 @@ class QuizChoiceButton extends StatelessWidget {
     } else if (correctAnswer == btnText && correctAnswer != null) {
       btnColor = Colors.green;
     } else {
-      btnColor = const Color.fromARGB(255, 160, 160, 160);
+      btnColor = Colorpalette.primaryColor;
     }
     return MainButton(
       btnText: btnText,
       btnColor: btnColor,
-      btnBorderColor: const Color.fromARGB(255, 76, 76, 76),
+      btnBorderColor: Colorpalette.borderColor,
       btnBorderRadius: 30,
       withScaleFactor: 6,
-      btnTextColor: const Color.fromARGB(255, 255, 255, 255),
+      btnTextColor: Colorpalette.textColor,
       heightScaleFactor: 1,
       btnMarginVertical: 5,
       btnMarginHorizontal: 2,
@@ -164,8 +165,8 @@ class ContactButton extends StatelessWidget {
     return MainButton(
       icon: icon,
       btnText: btnText,
-      btnColor: const Color.fromARGB(255, 255, 255, 255),
-      btnBorderColor: const Color.fromARGB(255, 204, 204, 204),
+      btnColor: Colorpalette.primaryColor,
+      btnBorderColor: Colorpalette.borderColor,
       btnBorderRadius: 30,
       withScaleFactor: 8,
       btnTextColor: const Color.fromARGB(255, 0, 0, 0),

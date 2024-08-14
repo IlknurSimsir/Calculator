@@ -1,4 +1,5 @@
 import 'package:first_app/components/text_field_container.dart';
+import 'package:first_app/constant/colorPalette.dart';
 import 'package:flutter/material.dart';
 
 class RoundedInputFields extends StatelessWidget {
@@ -30,6 +31,9 @@ class RoundedInputFields extends StatelessWidget {
           ),
           fillColor: const Color.fromARGB(255, 0, 0, 0),
           border: InputBorder.none,
+        ),
+        style: TextStyle(
+          color: Colorpalette.textColor,
         ),
       ),
     );

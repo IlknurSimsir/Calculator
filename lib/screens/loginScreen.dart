@@ -3,6 +3,7 @@ import 'package:first_app/components/rounded_input_fields.dart';
 import 'package:first_app/components/square_box.dart';
 import 'package:first_app/constant/app_text_style.dart';
 import 'package:first_app/constant/width.dart';
+import 'package:first_app/main.dart';
 import 'package:first_app/screens/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,20 +21,16 @@ class _LoginScreenState extends State<LoginScreen> {
   String password = '';
 
   // Predefined credentials
-  final String defaultEmail = 'user@example.com';
-  final String defaultPassword = 'password123';
+  final String defaultEmail = 'ilknur@gmail.com';
+  final String defaultPassword = '123';
 
   void checkCredentialsAndLogin(BuildContext context) {
     if (email == defaultEmail && password == defaultPassword) {
-      // Credentials are correct, navigate to Main_Page
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-            builder: (context) =>
-                MainPage()), // Ensure MainPage is the correct name of your main page widget
+        MaterialPageRoute(builder: (context) => PersistenBottomNavBarDemo()),
       );
     } else {
-      // Credentials are incorrect, show error message
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('You entered an incorrect e-mail or password'),

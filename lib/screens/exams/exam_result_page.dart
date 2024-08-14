@@ -1,3 +1,4 @@
+import 'package:first_app/components/appBarDesign.dart';
 import 'package:first_app/constant/app_text_style.dart';
 import 'package:first_app/constant/screen_size.dart';
 import 'package:first_app/constant/width.dart';
@@ -27,14 +28,7 @@ class ExamResultPage extends StatelessWidget {
     point = (100 / questions) * numberOfTrueAnswers;
     String formattedPoint = point.toStringAsFixed(2);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.deepOrange,
-        title: const Text(
-          "Sonucunu gör",
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true,
-      ),
+      appBar: AppBarDesign(),
       body: Column(
         children: [
           Container(

@@ -1,12 +1,20 @@
+import 'package:first_app/components/appBarDesign.dart';
 import 'package:first_app/constant/app_text_style.dart';
 import 'package:first_app/constant/screen_size.dart';
 import 'package:first_app/constant/sizedBox_ratio.dart';
 import 'package:first_app/constant/width.dart';
+import 'package:first_app/screens/announcements/announcementList.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AnnouncementPage extends StatelessWidget {
-  const AnnouncementPage({super.key});
+class AnnouncementPage extends ConsumerStatefulWidget {
+  AnnouncementPage({super.key});
 
+  @override
+  ConsumerState<AnnouncementPage> createState() => _AnnouncementPageState();
+}
+
+class _AnnouncementPageState extends ConsumerState<AnnouncementPage> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = Width(context);
@@ -16,14 +24,7 @@ class AnnouncementPage extends StatelessWidget {
         ScreenSize.screenWidthControl(screenWidth)['valueResult']!;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.deepOrange,
-        title: const Text(
-          "Duyuru",
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true,
-      ),
+      appBar: AppBarDesign(),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
@@ -35,7 +36,7 @@ class AnnouncementPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    "16/07/2021",
+                    ref.read(announcementProvider),
                     style: AppTextStyle.MINI_DESCRIPTION_TEXT(valueTextSize),
                   ),
                 ],
@@ -45,7 +46,7 @@ class AnnouncementPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Başlık",
+                    "widget.content,",
                     style: AppTextStyle.quizQuestionText(valueTextSize),
                   ),
                 ],
@@ -59,7 +60,7 @@ class AnnouncementPage extends StatelessWidget {
                     child: Text(
                       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut maximus purus mi, eu imperdiet nulla feugiat ac. Donec tristique ipsum et nulla vehicula mattis. Donec luctus odio id mauris molestie vestibulum. In finibus venenatis ultricies. Quisque libero elit, gravida ut imperdiet vel, tincidunt vel lectus. Proin lacinia libero orci, a commodo diam aliquam et. Ut sed diam consequat, dapibus odio a, rhoncus tortor. Nulla scelerisque fermentum nisi, in malesuada mauris fringilla et.",
                       style: AppTextStyle.miniDefaultDescriptionText(
-                          valueTextSize * 1.2, Colors.black),
+                          valueTextSize * 1.2),
                     ),
                   ),
                 ],

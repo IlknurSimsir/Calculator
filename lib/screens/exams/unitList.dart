@@ -1,3 +1,4 @@
+import 'package:first_app/components/appBarDesign.dart';
 import 'package:first_app/constant/navigate_to.dart';
 import 'package:first_app/screens/exams/testList.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class _UnitlistState extends State<Unitlist> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBarDesign(),
       body: ListView.separated(
           itemBuilder: (context, index) => ListTile(
                 title: Text(units[index]),

@@ -1,3 +1,4 @@
+import 'package:first_app/components/appBarDesign.dart';
 import 'package:first_app/constant/app_text_style.dart';
 import 'package:first_app/constant/buttons/buttons.dart';
 import 'package:first_app/constant/screen_size.dart';
@@ -126,14 +127,7 @@ class _ExamPageState extends State<ExamPage> {
         ScreenSize.screenWidthControl(screenWidth)['valueResult']!;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.deepOrange,
-        title: const Text(
-          "DriverApp Test",
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true,
-      ),
+      appBar: AppBarDesign(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -215,20 +209,21 @@ class _ExamPageState extends State<ExamPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SmallButton(
-                    btnText: "Sınavı Bitir",
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ExamResultPage(
-                            numberOfTrueAnswers: numberOfTrueAnswers,
-                            userAnswers: userAnswers,
-                            questionList: questionList,
-                          ),
+                  btnText: "Sınavı Bitir",
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ExamResultPage(
+                          numberOfTrueAnswers: numberOfTrueAnswers,
+                          userAnswers: userAnswers,
+                          questionList: questionList,
                         ),
-                      );
-                    },
-                    btnBorderRadius: 20),
+                      ),
+                    );
+                  },
+                  btnBorderRadius: 20,
+                ),
               ],
             ),
           ),
